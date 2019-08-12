@@ -1,26 +1,25 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
 using System;
+using System.Collections;
 
 namespace LitecartTesting
 {
-    [TestFixture]
-    public class LoginTest
+    [TestFixtureSource(typeof(MyFixtureData), "FixtureParameters")]
+    public class ParameterizedLogin
     {
         private IWebDriver webDriver;
-        private WebDriverWait wait;
 
-        [SetUp]
-        public void SetUp()
+        public ParameterizedLogin(Func<IWebDriver> creator)
         {
-            webDriver = new ChromeDriver();
-            wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            webDriver = creator();
         }
 
         [Test]
-        public void LoginWithCorrectCredentials()
+        public void Login()
         {
             webDriver.Url = "http://localhost/litecart/admin/";
 
@@ -35,6 +34,19 @@ namespace LitecartTesting
         {
             webDriver.Quit();
             webDriver = null;
+        }
+    }
+
+    public class MyFixtureData
+    {
+        public static IEnumerable FixtureParameters
+        {
+            get
+            {
+                yield return new TestFixtureData(new Func<IWebDriver>(() => new ChromeDriver()));
+                yield return new TestFixtureData(new Func<IWebDriver>(() => new EdgeDriver()));
+                yield return new TestFixtureData(new Func<IWebDriver>(() => new FirefoxDriver(new FirefoxOptions() { BrowserExecutableLocation = @"C:\Program Files\Mozilla Firefox\firefox.exe" })));
+            }
         }
     }
 }
