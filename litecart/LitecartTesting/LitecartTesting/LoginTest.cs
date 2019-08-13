@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using LitecartTesting.Forms;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
@@ -21,12 +22,8 @@ namespace LitecartTesting
         [Test]
         public void Login()
         {
-            webDriver.Url = "http://localhost/litecart/admin/";
-
-            webDriver.FindElement(By.Name("username")).SendKeys("admin");
-            webDriver.FindElement(By.Name("password")).SendKeys("admin");
-
-            webDriver.FindElement(By.Name("login")).Click();
+            var loginPage = new LoginPage(webDriver);
+            loginPage.Login("admin", "admin");
         }
 
         [TearDown]
