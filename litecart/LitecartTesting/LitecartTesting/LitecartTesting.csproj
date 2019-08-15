@@ -60,10 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckDuckLabelsOnMainPage.cs" />
     <Compile Include="LoginAndClickOnMenuItems.cs" />
     <Compile Include="Pages\AdministrationPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="LoginTest.cs" />
+    <Compile Include="Pages\MainStorePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
