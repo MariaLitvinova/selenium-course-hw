@@ -11,3 +11,5 @@ before_build:
 
 build_script:
     - msbuild %SOLUTION_NAME%
+
+test: off
