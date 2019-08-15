@@ -1,0 +1,13 @@
+image: Visual Studio 2019
+
+build: off
+
+environment:
+    matrix:
+    - SOLUTION_NAME: litecart/LitecartTesting/LitecartTesting.sln
+
+before_build:
+    - nuget restore %SOLUTION_NAME%
+
+build_script:
+    - msbuild %SOLUTION_NAME%
