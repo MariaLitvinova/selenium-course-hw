@@ -39,8 +39,8 @@ namespace LitecartTesting.Pages
 
         private void CheckLabel(IWebElement duckElement, string labelText)
         {
-            var imageWrapper = duckElement.FindElements(By.ClassName("image-wrapper")).FirstOrDefault();
-            var labelElements = imageWrapper.FindElements(By.TagName("div"));
+            var labelElements = duckElement.FindElements(By.ClassName("sticker"));
+
             Assert.AreEqual(1, labelElements.Count);
             Assert.AreEqual(labelText, labelElements.First().Text);
         }
@@ -75,7 +75,7 @@ namespace LitecartTesting.Pages
         public IWebElement LatestProducts => webDriver.FindElement(By.Id("box-latest-products"));
 
         public IReadOnlyCollection<IWebElement> GetAllDucksInSection(IWebElement section) 
-            => section.FindElements(By.TagName("li"));
+            => section.FindElements(By.ClassName("product"));
 
         public MainStorePage(IWebDriver webDriver, WebDriverWait wait)
         {
