@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LitecartTesting.Pages.AdministrationMenu
 {
-    class Geozones
+    public class Geozones
     {
     }
 }
