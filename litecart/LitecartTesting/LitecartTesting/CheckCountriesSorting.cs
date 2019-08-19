@@ -28,10 +28,14 @@ namespace LitecartTesting
             loginPage.Login("admin", "admin");
 
             var administrationPage = new AdministrationPage(webDriver, wait);
-            administrationPage.CountriesMenu.Click();
 
+            administrationPage.CountriesMenu.Click();
             var countriesPage = new CountriesPage(webDriver, wait);
             countriesPage.CheckSorting();
+
+            administrationPage.GeozonesMenu.Click();
+            var geozonesPage = new GeozonesPage(webDriver, wait);
+            geozonesPage.CheckSorting();
         }
 
         [TearDown]

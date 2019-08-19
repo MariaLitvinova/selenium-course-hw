@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using LitecartTesting.Pages;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
@@ -7,11 +8,8 @@ using System.Linq;
 
 namespace LitecartTesting.Forms
 {
-    public class AdministrationPage
+    public class AdministrationPage : PageBase
     {
-        private readonly IWebDriver webDriver;
-        private readonly WebDriverWait wait;
-
         private readonly List<MenuItem> expectedMenuStructure = new List<MenuItem>()
         {
             new MenuItem("Appearence", "Template", new List<string>()
@@ -147,11 +145,7 @@ namespace LitecartTesting.Forms
 
         public ReadOnlyCollection<IWebElement> SubMenuItems => webDriver.FindElements(By.CssSelector("div#box-apps-menu-wrapper #app- .docs li"));
 
-        public AdministrationPage(IWebDriver driver, WebDriverWait wait)
-        {
-            webDriver = driver;
-            this.wait = wait;
-        }
+        public AdministrationPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
         public void ClickOnAllMenuItems()
         {
@@ -167,12 +161,8 @@ namespace LitecartTesting.Forms
                 Assert.AreEqual(expectedMenuItem.ItemText, actualMenuItem.Text);
 
                 actualMenuItem.Click();
-                
-                bool correctHeaderAppeared = wait.Until(driver =>
-                    driver.FindElements(By.CssSelector("td#content h1")).Count == 1
-                    && driver.FindElement(By.CssSelector("td#content h1")).Text == expectedMenuItem.HeaderText);
+                WaitUntilHeaderAppears(expectedMenuItem.HeaderText);
 
-                Assert.IsTrue(correctHeaderAppeared);
                 var expectedNumberOfSubmenuItems = expectedMenuItem.SubMenuItems?.Count ?? 0;
                 Assert.AreEqual(expectedNumberOfSubmenuItems, SubMenuItems.Count);
                 
@@ -182,10 +172,7 @@ namespace LitecartTesting.Forms
                     Assert.AreEqual(expectedMenuItem.SubMenuItems[j].ItemText, jthSubmenuItem.Text);
 
                     jthSubmenuItem.Click();
-                    bool headerAppeared = wait.Until(driver =>
-                        driver.FindElements(By.CssSelector("td#content h1")).Count == 1
-                        && driver.FindElement(By.CssSelector("td#content h1")).Text == expectedMenuItem.SubMenuItems[j].HeaderText);
-                    Assert.IsTrue(headerAppeared);
+                    WaitUntilHeaderAppears(expectedMenuItem.SubMenuItems[j].HeaderText);
                 }
             }
         }

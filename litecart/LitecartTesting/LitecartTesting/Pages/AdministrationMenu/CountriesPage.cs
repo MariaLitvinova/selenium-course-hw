@@ -6,11 +6,8 @@ using System.Collections.ObjectModel;
 
 namespace LitecartTesting.Pages.AdministrationMenu
 {
-    public class CountriesPage
+    public class CountriesPage : PageBase
     {
-        private readonly IWebDriver webDriver;
-        private readonly WebDriverWait wait;
-
         public IWebElement CountriesTable => webDriver.FindElement(By.ClassName("dataTable"));
 
         public IWebElement GeozonesTable => webDriver.FindElement(By.Id("table-zones"));
@@ -21,25 +18,19 @@ namespace LitecartTesting.Pages.AdministrationMenu
 
         public IWebElement CancelEditingGeozonesButton => webDriver.FindElement(By.Name("cancel"));
 
-        public CountriesPage(IWebDriver driver, WebDriverWait wait)
-        {
-            webDriver = driver;
-            this.wait = wait;
-        }
+        public CountriesPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
         public void CheckSorting()
         {
             WaitUntilHeaderAppears("Countries");
 
             var previousName = "";
-            var currentName = "";
-
             for (int i = 0; i < CountriesList.Count; ++i)
             {
                 var row = CountriesList[i];
                 var columns = row.FindElements(By.CssSelector("td"));
 
-                currentName = columns[4].Text;
+                string currentName = columns[4].Text;
                 var currentAmountOfGeozones = columns[5].Text;
 
                 if (!string.IsNullOrEmpty(previousName))
@@ -51,27 +42,24 @@ namespace LitecartTesting.Pages.AdministrationMenu
                 {
                     var href = row.FindElement(By.CssSelector("a"));
                     href.Click();
-                    CheckSortingOfGeozonesInCountry();
+                    CheckSortingOfGeozonesOnCountryPage();
                 }
 
                 previousName = currentName;
             }
         }
 
-        private void CheckSortingOfGeozonesInCountry()
+        private void CheckSortingOfGeozonesOnCountryPage()
         {
             WaitUntilHeaderAppears("Edit Country");
 
             var previousName = "";
-            var currentName = "";
-
             for (int i = 0; i < GeozonesList.Count; ++i)
             {
                 var row = GeozonesList[i];
                 var columns = row.FindElements(By.CssSelector("td"));
 
-                currentName = columns[2].Text;
-
+                string currentName = columns[2].Text;
                 if (!string.IsNullOrEmpty(previousName) && !string.IsNullOrEmpty(currentName))
                 {
                     Assert.IsTrue(StringComparer.Ordinal.Compare(previousName, currentName) <= 0);
@@ -83,14 +71,6 @@ namespace LitecartTesting.Pages.AdministrationMenu
             CancelEditingGeozonesButton.Click();
 
             WaitUntilHeaderAppears("Countries");
-        }
-
-        private void WaitUntilHeaderAppears(string header)
-        {
-            bool headerAppeared = wait.Until(driver =>
-                driver.FindElements(By.CssSelector("td#content h1")).Count == 1
-                && driver.FindElement(By.CssSelector("td#content h1")).Text == header);
-            Assert.IsTrue(headerAppeared);
         }
     }
 }
