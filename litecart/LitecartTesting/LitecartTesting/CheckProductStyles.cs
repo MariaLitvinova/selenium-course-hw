@@ -28,7 +28,7 @@ namespace LitecartTesting
             var mainPage = new MainStorePage(webDriver, wait);
             mainPage.Load();
 
-            mainPage.CheckProductStyles();
+            mainPage.CheckYellowDuckStyle();
         }
 
         [TearDown]

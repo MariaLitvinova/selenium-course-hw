@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LitecartTesting.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -15,9 +16,8 @@ namespace LitecartTesting.Pages.StorePages
 
         public IWebElement Title => ProductBox.FindElement(By.CssSelector(".title"));
 
-        public IWebElement RegularPrice 
-            => ProductBox.FindElements(By.CssSelector(".regular-price")).FirstOrDefault() 
-            ?? ProductBox.FindElement(By.CssSelector(".price"));
+        public IWebElement RegularPrice
+            => ProductBox.FindElements(By.CssSelector(".regular-price")).FirstOrDefault();
 
         public IWebElement CampaignPrice
             => ProductBox.FindElements(By.CssSelector(".campaign-price")).FirstOrDefault();
@@ -35,13 +35,9 @@ namespace LitecartTesting.Pages.StorePages
         {
             Assert.AreEqual(productName, Title.Text);
             Assert.AreEqual(usualPrice, RegularPrice.Text);
-            if (string.IsNullOrEmpty(campaignPrice))
-            {
-                Assert.IsNull(CampaignPrice);
-            } else
-            {
-                Assert.AreEqual(campaignPrice, CampaignPrice.Text);
-            }
+            Assert.AreEqual(campaignPrice, CampaignPrice.Text);
+
+            StylesHelper.CheckProductStyles(RegularPrice, CampaignPrice);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using LitecartTesting.Pages.StorePages;
+﻿using LitecartTesting.Helpers;
+using LitecartTesting.Pages.StorePages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -16,7 +17,7 @@ namespace LitecartTesting.Pages
             Assert.AreEqual(1, labelElements.Count);
         }
 
-        public ReadOnlyCollection<IWebElement> DucksList 
+        public ReadOnlyCollection<IWebElement> DucksList
             => webDriver.FindElements(By.ClassName("product"));
 
         public IWebElement HomeButton
@@ -41,31 +42,31 @@ namespace LitecartTesting.Pages
             }
         }
 
-        public void CheckProductStyles()
+        public void CheckYellowDuckStyle()
         {
-            Assert.AreEqual(11, DucksList.Count);
+            var campaignSection = webDriver.FindElement(By.CssSelector("#box-campaigns"));
+            var yellowDuck = campaignSection.FindElements(By.CssSelector(".product")).FirstOrDefault();
+            Assert.IsNotNull(yellowDuck);
 
-            for (int i = 0; i < DucksList.Count; ++i)
-            {
-                var productName = DucksList[i].FindElement(By.CssSelector(".name"));
-                var regularPrice = DucksList[i].FindElements(By.CssSelector(".regular-price")).FirstOrDefault()
-                    ?? DucksList[i].FindElement(By.CssSelector(".price"));
-                var campaignPrice = DucksList[i].FindElements(By.CssSelector(".campaign-price")).FirstOrDefault();
+            var productName = yellowDuck.FindElement(By.CssSelector(".name"));
+            var regularPrice = yellowDuck.FindElements(By.CssSelector(".regular-price")).FirstOrDefault();
+            var campaignPrice = yellowDuck.FindElements(By.CssSelector(".campaign-price")).FirstOrDefault();
 
-                var productNameText = productName.Text;
-                var regularPriceText = regularPrice.Text;
-                var campaignPriceText = campaignPrice?.Text;
+            StylesHelper.CheckProductStyles(regularPrice, campaignPrice);
 
-                var link = DucksList[i].FindElement(By.CssSelector("a.link"));
-                link.Click();
+            var productNameText = productName.Text;
+            var regularPriceText = regularPrice.Text;
+            var campaignPriceText = campaignPrice?.Text;
 
-                var productPage = new ProductPage(webDriver, wait);
-                productPage.CheckPageIsLoaded();
+            var link = yellowDuck.FindElement(By.CssSelector("a.link"));
+            link.Click();
 
-                productPage.CheckStylesForProduct(productNameText, regularPriceText, campaignPriceText);
+            var productPage = new ProductPage(webDriver, wait);
+            productPage.CheckPageIsLoaded();
 
-                HomeButton.Click();
-            }
+            productPage.CheckStylesForProduct(productNameText, regularPriceText, campaignPriceText);
+
+            HomeButton.Click();
         }
     }
 }
