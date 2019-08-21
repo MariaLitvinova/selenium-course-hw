@@ -60,8 +60,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckProductStyles.cs" />
     <Compile Include="CheckDuckLabelsOnMainPage.cs" />
     <Compile Include="CheckCountriesSorting.cs" />
+    <Compile Include="Helpers\SortingHelper.cs" />
     <Compile Include="LoginAndClickOnMenuItems.cs" />
     <Compile Include="Pages\AdministrationMenu\CountriesPage.cs" />
     <Compile Include="Pages\AdministrationMenu\GeozonesPage.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="LoginTest.cs" />
     <Compile Include="Pages\MainStorePage.cs" />
     <Compile Include="Pages\PageBase.cs" />
+    <Compile Include="Pages\StorePages\ProductPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
