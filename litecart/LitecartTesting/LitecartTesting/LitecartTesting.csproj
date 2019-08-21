@@ -63,6 +63,7 @@
     <Compile Include="CheckProductStyles.cs" />
     <Compile Include="CheckDuckLabelsOnMainPage.cs" />
     <Compile Include="CheckCountriesSorting.cs" />
+    <Compile Include="Helpers\MyFixtureData.cs" />
     <Compile Include="Helpers\SortingHelper.cs" />
     <Compile Include="Helpers\StylesHelper.cs" />
     <Compile Include="LoginAndClickOnMenuItems.cs" />

@@ -1,4 +1,5 @@
 ﻿using LitecartTesting.Forms;
+using LitecartTesting.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -31,19 +32,6 @@ namespace LitecartTesting
         {
             webDriver.Quit();
             webDriver = null;
-        }
-    }
-
-    public class MyFixtureData
-    {
-        public static IEnumerable FixtureParameters
-        {
-            get
-            {
-                yield return new TestFixtureData(new Func<IWebDriver>(() => new ChromeDriver()));
-                yield return new TestFixtureData(new Func<IWebDriver>(() => new EdgeDriver()));
-                yield return new TestFixtureData(new Func<IWebDriver>(() => new FirefoxDriver(new FirefoxOptions() { BrowserExecutableLocation = @"C:\Program Files\Mozilla Firefox\firefox.exe" })));
-            }
         }
     }
 }

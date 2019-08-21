@@ -31,13 +31,17 @@ namespace LitecartTesting.Pages.StorePages
             wait.Until(driver => driver.Title.Contains("Rubber Ducks"));
         }
 
-        public void CheckStylesForProduct(string productName, string usualPrice, string campaignPrice)
+        public void CheckStylesForProduct(
+            string productName, 
+            string usualPrice, 
+            string campaignPrice,
+            string webDriverName)
         {
             Assert.AreEqual(productName, Title.Text);
             Assert.AreEqual(usualPrice, RegularPrice.Text);
             Assert.AreEqual(campaignPrice, CampaignPrice.Text);
 
-            StylesHelper.CheckProductStyles(RegularPrice, CampaignPrice);
+            StylesHelper.CheckProductStyles(RegularPrice, CampaignPrice, webDriverName);
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using LitecartTesting.Forms;
+﻿using LitecartTesting.Helpers;
 using LitecartTesting.Pages;
-using LitecartTesting.Pages.AdministrationMenu;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -9,16 +8,17 @@ using System;
 
 namespace LitecartTesting
 {
-    [TestFixture]
+    [TestFixtureSource(typeof(MyFixtureData), "FixtureParameters")]
     public class CheckProductStyles
     {
         private IWebDriver webDriver;
         private WebDriverWait wait;
+        private string webDriverName;
 
-        [SetUp]
-        public void SetUp()
+        public CheckProductStyles(Func<IWebDriver> creator)
         {
-            webDriver = new ChromeDriver();
+            webDriver = creator();
+            webDriverName = webDriver.GetType().Name;
             wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(30));
         }
 
@@ -28,7 +28,7 @@ namespace LitecartTesting
             var mainPage = new MainStorePage(webDriver, wait);
             mainPage.Load();
 
-            mainPage.CheckYellowDuckStyle();
+            mainPage.CheckYellowDuckStyle(webDriverName);
         }
 
         [TearDown]

@@ -14,24 +14,34 @@ namespace LitecartTesting.Helpers
         /// <param name="campaignPrice">Акционная цена</param>
         public static void CheckProductStyles(
             IWebElement regularPrice,
-            IWebElement campaignPrice)
+            IWebElement campaignPrice,
+            string webDriverName)
         {
             var regularPriceColor = regularPrice.GetCssValue("color");
             var campaignPriceColor = campaignPrice.GetCssValue("color");
 
-            var regularColorMatched = ParseColorValue(regularPriceColor);
+            var regularColorMatched = ParseColorValue(regularPriceColor, webDriverName);
             Assert.AreEqual(regularColorMatched.r, regularColorMatched.g);
             Assert.AreEqual(regularColorMatched.g, regularColorMatched.b);
 
-            var campaignColorMatched = ParseColorValue(campaignPriceColor);
+            var campaignColorMatched = ParseColorValue(campaignPriceColor, webDriverName);
             Assert.AreEqual(0, campaignColorMatched.g);
             Assert.AreEqual(0, campaignColorMatched.b);
 
-            var regularPriceDecoration = regularPrice.GetCssValue("text-decoration-line");
+            var regularPriceDecoration = "";
+
+            if (webDriverName == "EdgeDriver")
+            {
+                regularPriceDecoration = regularPrice.GetCssValue("text-decoration");
+            } else
+            {
+                regularPriceDecoration = regularPrice.GetCssValue("text-decoration-line");
+            }
+
             Assert.AreEqual("line-through", regularPriceDecoration);
 
-            var campaignPriceFontWeight = campaignPrice.GetCssValue("font-weight");
-            Assert.AreEqual("700", campaignPriceFontWeight);
+            var campaignPriceFontWeight = int.Parse(campaignPrice.GetCssValue("font-weight"));
+            Assert.Greater(campaignPriceFontWeight, 400);
 
             var regularPriceSize = regularPrice.GetCssValue("font-size");
             var regularPriceSizeParsed = ParseFontSize(regularPriceSize);
@@ -40,17 +50,25 @@ namespace LitecartTesting.Helpers
             Assert.Greater(campaignPriceSizeParsed, regularPriceSizeParsed);
         }
 
-        private static (int r, int g, int b, int a) ParseColorValue(string color)
+        private static (int r, int g, int b) ParseColorValue(string color, string webDriverName)
         {
-            var regex = new Regex(@"rgba\((?<r>\d+), (?<g>\d+), (?<b>\d+), (?<a>\d+)\)");
+            Regex regex;
+
+            if (webDriverName == "ChromeDriver")
+            {
+                regex = new Regex(@"rgba\((?<r>\d+), (?<g>\d+), (?<b>\d+), (?<a>\d+)\)");
+            } else
+            {
+                regex = new Regex(@"rgb\((?<r>\d+), (?<g>\d+), (?<b>\d+)\)");
+            }
             var match = regex.Match(color);
+
 
             var r = int.Parse(match.Groups["r"].Value);
             var g = int.Parse(match.Groups["g"].Value);
             var b = int.Parse(match.Groups["b"].Value);
-            var a = int.Parse(match.Groups["a"].Value);
 
-            return (r, g, b, a);
+            return (r, g, b);
         }
 
         private static double ParseFontSize(string stringRepresentation)

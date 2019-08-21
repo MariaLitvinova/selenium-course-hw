@@ -42,7 +42,7 @@ namespace LitecartTesting.Pages
             }
         }
 
-        public void CheckYellowDuckStyle()
+        public void CheckYellowDuckStyle(string webDriverName)
         {
             var campaignSection = webDriver.FindElement(By.CssSelector("#box-campaigns"));
             var yellowDuck = campaignSection.FindElements(By.CssSelector(".product")).FirstOrDefault();
@@ -52,7 +52,7 @@ namespace LitecartTesting.Pages
             var regularPrice = yellowDuck.FindElements(By.CssSelector(".regular-price")).FirstOrDefault();
             var campaignPrice = yellowDuck.FindElements(By.CssSelector(".campaign-price")).FirstOrDefault();
 
-            StylesHelper.CheckProductStyles(regularPrice, campaignPrice);
+            StylesHelper.CheckProductStyles(regularPrice, campaignPrice, webDriverName);
 
             var productNameText = productName.Text;
             var regularPriceText = regularPrice.Text;
@@ -64,7 +64,7 @@ namespace LitecartTesting.Pages
             var productPage = new ProductPage(webDriver, wait);
             productPage.CheckPageIsLoaded();
 
-            productPage.CheckStylesForProduct(productNameText, regularPriceText, campaignPriceText);
+            productPage.CheckStylesForProduct(productNameText, regularPriceText, campaignPriceText, webDriverName);
 
             HomeButton.Click();
         }
