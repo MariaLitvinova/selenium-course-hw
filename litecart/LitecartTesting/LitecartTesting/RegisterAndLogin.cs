@@ -34,10 +34,7 @@ namespace LitecartTesting
             var (email, password) = registerPage.CreateAccount();
 
             mainPage.Logout.Click();
-
-            mainPage.EmailTextArea.SendKeys(email);
-            mainPage.PasswordTextArea.SendKeys(password);
-            mainPage.LoginButton.Click();
+            mainPage.Login(email, password);
 
             mainPage.Logout.Click();
         }

@@ -37,6 +37,8 @@ namespace LitecartTesting.Pages.StorePages
 
         public (string email, string password) CreateAccount()
         {
+            wait.Until(driver => driver.Title.Contains("Create Account"));
+
             FirstName.SendKeys("Name_" + RandomDataGenerator.RandomString());
 
             LastName.SendKeys("Surname_" + RandomDataGenerator.RandomString());

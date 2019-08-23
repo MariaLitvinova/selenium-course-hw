@@ -97,5 +97,14 @@ namespace LitecartTesting.Pages
 
             HomeButton.Click();
         }
+
+        public void Login(string email, string password)
+        {
+            wait.Until(driver => driver.Title.Contains("Online Store"));
+
+            EmailTextArea.SendKeys(email);
+            PasswordTextArea.SendKeys(password);
+            LoginButton.Click();
+        }
     }
 }
