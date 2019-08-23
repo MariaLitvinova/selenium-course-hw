@@ -28,8 +28,7 @@ namespace LitecartTesting.Helpers
             Assert.AreEqual(0, campaignColorMatched.g);
             Assert.AreEqual(0, campaignColorMatched.b);
 
-            var regularPriceDecoration = "";
-
+            string regularPriceDecoration;
             if (webDriverName == "EdgeDriver")
             {
                 regularPriceDecoration = regularPrice.GetCssValue("text-decoration");
@@ -61,8 +60,8 @@ namespace LitecartTesting.Helpers
             {
                 regex = new Regex(@"rgb\((?<r>\d+), (?<g>\d+), (?<b>\d+)\)");
             }
-            var match = regex.Match(color);
 
+            var match = regex.Match(color);
 
             var r = int.Parse(match.Groups["r"].Value);
             var g = int.Parse(match.Groups["g"].Value);

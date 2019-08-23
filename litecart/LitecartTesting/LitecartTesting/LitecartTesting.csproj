@@ -64,8 +64,11 @@
     <Compile Include="CheckDuckLabelsOnMainPage.cs" />
     <Compile Include="CheckCountriesSorting.cs" />
     <Compile Include="Helpers\MyFixtureData.cs" />
+    <Compile Include="Helpers\RandomDataGenerator.cs" />
     <Compile Include="Helpers\SortingHelper.cs" />
     <Compile Include="Helpers\StylesHelper.cs" />
+    <Compile Include="Pages\StorePages\RegisterPage.cs" />
+    <Compile Include="RegisterAndLogin.cs" />
     <Compile Include="LoginAndClickOnMenuItems.cs" />
     <Compile Include="Pages\AdministrationMenu\CountriesPage.cs" />
     <Compile Include="Pages\AdministrationMenu\GeozonesPage.cs" />

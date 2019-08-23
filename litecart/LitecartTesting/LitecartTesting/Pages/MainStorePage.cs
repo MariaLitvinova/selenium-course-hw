@@ -23,6 +23,35 @@ namespace LitecartTesting.Pages
         public IWebElement HomeButton
             => webDriver.FindElement(By.CssSelector("li.general-0 a"));
 
+        public IWebElement LoginForm
+            => webDriver.FindElement(By.CssSelector("#box-account-login"));
+
+        public IWebElement EmailTextArea
+            => LoginForm.FindElement(By.Name("email"));
+
+        public IWebElement PasswordTextArea
+            => LoginForm.FindElement(By.Name("password"));
+        public IWebElement LoginButton
+            => LoginForm.FindElement(By.Name("login"));
+
+        public IWebElement RegisterLink
+            => LoginForm.FindElement(By.TagName("a"));
+
+        public IWebElement AccountForm
+            => webDriver.FindElement(By.CssSelector("#box-account"));
+
+        public IWebElement CustomerService
+            => AccountForm.FindElements(By.CssSelector("li"))[0].FindElement(By.CssSelector("a"));
+
+        public IWebElement OrderHistory
+            => AccountForm.FindElements(By.CssSelector("li"))[1].FindElement(By.CssSelector("a"));
+
+        public IWebElement EditAccount
+            => AccountForm.FindElements(By.CssSelector("li"))[2].FindElement(By.CssSelector("a"));
+
+        public IWebElement Logout
+            => AccountForm.FindElements(By.CssSelector("li"))[3].FindElement(By.CssSelector("a"));
+
         public MainStorePage(IWebDriver webDriver, WebDriverWait wait) : base(webDriver, wait) { }
 
         public void Load()
