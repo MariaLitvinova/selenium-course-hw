@@ -21,6 +21,10 @@ namespace LitecartTesting.Pages.StorePages
 
         public IWebElement City => webDriver.FindElement(By.Name("city"));
 
+        public IWebElement Country => webDriver.FindElement(By.ClassName("select2"));
+
+        public IWebElement CountrySearch => webDriver.FindElement(By.ClassName("select2-search__field"));
+
         public IWebElement Email => webDriver.FindElement(By.Name("email"));
 
         public IWebElement Phone => webDriver.FindElement(By.Name("phone"));
@@ -45,7 +49,10 @@ namespace LitecartTesting.Pages.StorePages
 
             Address1.SendKeys("Address_" + RandomDataGenerator.RandomString());
 
-            Postcode.SendKeys(RandomDataGenerator.RandomStringOfNumbers(6));
+            Postcode.SendKeys(RandomDataGenerator.RandomStringOfNumbers(5));
+
+            Country.Click();
+            CountrySearch.SendKeys("United States" + Keys.Enter);
 
             City.SendKeys("City_" + RandomDataGenerator.RandomString());
 
@@ -56,6 +63,13 @@ namespace LitecartTesting.Pages.StorePages
             Phone.SendKeys("+7" + RandomDataGenerator.RandomStringOfNumbers(10));
 
             var password = RandomDataGenerator.RandomString(15);
+
+            Password.SendKeys(password);
+            ConfirmedPassword.SendKeys(password);
+
+            // почему-то при выборе United States выпадающий список с зонами недоступен, он становится доступен только после клика на Create Account
+            // после этого по дефолту выбирается Alabama, но требуется повторно заполнить пароли
+            SubmitButton.Click();
 
             Password.SendKeys(password);
             ConfirmedPassword.SendKeys(password);
