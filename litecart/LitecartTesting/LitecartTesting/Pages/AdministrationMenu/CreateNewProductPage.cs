@@ -27,6 +27,8 @@ namespace LitecartTesting.Pages.AdministrationMenu
 
         public string CreateNewProduct()
         {
+            WaitUntilHeaderAppears("Add New Product");
+
             GeneralTab.Click();
             var generalTab = new GeneralTab(webDriver, wait);
             var productName = generalTab.FillInGeneralTab();
