@@ -139,6 +139,8 @@ namespace LitecartTesting.Forms
 
         public ReadOnlyCollection<IWebElement> MainMenuItems => webDriver.FindElements(By.CssSelector("div#box-apps-menu-wrapper #app-"));
 
+        public IWebElement CatalogMenu => MainMenuItems[1];
+
         public IWebElement CountriesMenu => MainMenuItems[2];
 
         public IWebElement GeozonesMenu => MainMenuItems[5];
