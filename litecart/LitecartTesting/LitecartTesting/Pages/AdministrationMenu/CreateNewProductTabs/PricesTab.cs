@@ -26,7 +26,7 @@ namespace LitecartTesting.Pages.AdministrationMenu
 
         public void FillInPricesTab()
         {
-            wait.Until(driver => driver.FindElement(By.Name("purchase_price")));
+            wait.Until(driver => driver.FindElements(By.Name("purchase_price")).Count > 0);
 
             PurchasePrice.SendKeys(Keys.Control + "a" + Keys.Backspace);
             PurchasePrice.SendKeys("10");

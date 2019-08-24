@@ -29,7 +29,7 @@ namespace LitecartTesting.Pages.AdministrationMenu
 
         public void FillInInformationTab(string productName)
         {
-            wait.Until(driver => driver.FindElement(By.Name("manufacturer_id")));
+            wait.Until(driver => driver.FindElements(By.Name("manufacturer_id")).Count > 0);
 
             ExecuteScriptsHelper.SelectItemFromDropDown(Manufacturer, 1, webDriver);
 
