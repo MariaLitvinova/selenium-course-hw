@@ -64,12 +64,15 @@
     <Compile Include="CheckProductStyles.cs" />
     <Compile Include="CheckDuckLabelsOnMainPage.cs" />
     <Compile Include="CheckCountriesSorting.cs" />
+    <Compile Include="Helpers\ExecuteScriptsHelper.cs" />
     <Compile Include="Helpers\MyFixtureData.cs" />
     <Compile Include="Helpers\RandomDataGenerator.cs" />
     <Compile Include="Helpers\SortingHelper.cs" />
     <Compile Include="Helpers\StylesHelper.cs" />
     <Compile Include="Pages\AdministrationMenu\CatalogPage.cs" />
     <Compile Include="Pages\AdministrationMenu\CreateNewProductPage.cs" />
+    <Compile Include="Pages\AdministrationMenu\CreateNewProductTabs\PricesTab.cs" />
+    <Compile Include="Pages\AdministrationMenu\CreateNewProductTabs\InformationTab.cs" />
     <Compile Include="Pages\AdministrationMenu\CreateNewProductTabs\GeneralTab.cs" />
     <Compile Include="Pages\StorePages\RegisterPage.cs" />
     <Compile Include="RegisterAndLogin.cs" />

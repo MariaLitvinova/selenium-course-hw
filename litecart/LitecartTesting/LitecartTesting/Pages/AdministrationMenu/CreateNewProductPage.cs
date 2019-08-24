@@ -25,17 +25,23 @@ namespace LitecartTesting.Pages.AdministrationMenu
 
         public CreateNewProductPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
-        public void CreateNewProduct()
+        public string CreateNewProduct()
         {
             GeneralTab.Click();
             var generalTab = new GeneralTab(webDriver, wait);
-            generalTab.FillInGeneralTab();
+            var productName = generalTab.FillInGeneralTab();
 
             InformationTab.Click();
+            var informationTab = new InformationTab(webDriver, wait);
+            informationTab.FillInInformationTab(productName);
 
             PricesTab.Click();
+            var pricesTab = new PricesTab(webDriver, wait);
+            pricesTab.FillInPricesTab();
 
-            //SaveButton.Click();
+            SaveButton.Click();
+
+            return productName;
         }
     }
 }

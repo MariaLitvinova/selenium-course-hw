@@ -25,8 +25,17 @@ namespace LitecartTesting.Pages.AdministrationMenu
         public IWebElement UnisexGroup
             => webDriver.FindElement(By.CssSelector("#tab-general > table > tbody > tr:nth-child(7) > td > div > table > tbody > tr:nth-child(4) > td:nth-child(1) > input[type=checkbox]"));
 
+        public IWebElement Quantity
+            => webDriver.FindElement(By.Name("quantity"));
+
+        public IWebElement SoldOutStatus
+            => webDriver.FindElement(By.Name("sold_out_status_id"));
+
         public IWebElement SelectImage
             => webDriver.FindElement(By.Name("new_images[]"));
+
+        public IWebElement ValidFrom
+            => webDriver.FindElement(By.Name("date_valid_from"));
 
         public GeneralTab(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
@@ -42,28 +51,23 @@ namespace LitecartTesting.Pages.AdministrationMenu
             RubberDuckCategory.Click();
             UnisexGroup.Click();
 
+            Quantity.SendKeys(Keys.Control + "a" + Keys.Backspace);
+            Quantity.SendKeys("10");
+
+            ExecuteScriptsHelper.SelectItemFromDropDown(SoldOutStatus, 0, webDriver);
+
             SelectImageForProduct();
+
+            ValidFrom.SendKeys(DateTime.Now.ToString("ddMMyyyy"));
 
             return name;
         }
 
         private void SelectImageForProduct()
         {
-            Unhide(SelectImage);
+            ExecuteScriptsHelper.Unhide(SelectImage, webDriver);
             string path = TestContext.CurrentContext.TestDirectory;
             SelectImage.SendKeys(path + "/Resourses/pigeon.jpg");
-        }
-
-        private void Unhide(IWebElement element)
-        {
-            var script = "arguments[0].style.opacity=1;"
-              + "arguments[0].style['transform']='translate(0px, 0px) scale(1)';"
-              + "arguments[0].style['MozTransform']='translate(0px, 0px) scale(1)';"
-              + "arguments[0].style['WebkitTransform']='translate(0px, 0px) scale(1)';"
-              + "arguments[0].style['msTransform']='translate(0px, 0px) scale(1)';"
-              + "arguments[0].style['OTransform']='translate(0px, 0px) scale(1)';"
-              + "return true;";
-            ((IJavaScriptExecutor)webDriver).ExecuteScript(script, element);
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using LitecartTesting.Forms;
+using LitecartTesting.Pages;
 using LitecartTesting.Pages.AdministrationMenu;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Linq;
 
 namespace LitecartTesting
 {
@@ -32,7 +34,17 @@ namespace LitecartTesting
             administrationPage.CatalogMenu.Click();
 
             var catalogPage = new CatalogPage(webDriver, wait);
-            catalogPage.CreateNewProduct();
+            var newProductName = catalogPage.CreateNewProduct();
+
+            var mainStorePage = new MainStorePage(webDriver, wait);
+            mainStorePage.Load();
+            var ducksNames = mainStorePage.DucksList.Select(x =>
+            {
+                var name = x.FindElement(By.ClassName("name"));
+                return name.Text;
+            }).ToList();
+
+            Assert.Contains(newProductName, ducksNames);
         }
 
         [TearDown]
