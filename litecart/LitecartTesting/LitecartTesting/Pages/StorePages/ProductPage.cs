@@ -16,6 +16,10 @@ namespace LitecartTesting.Pages.StorePages
 
         public IWebElement Title => ProductBox.FindElement(By.CssSelector(".title"));
 
+        public IWebElement AddToCart => webDriver.FindElement(By.Name("add_cart_product"));
+
+        public IWebElement SizeOptions => webDriver.FindElements(By.Name("options[Size]")).FirstOrDefault();
+
         public IWebElement RegularPrice
             => ProductBox.FindElements(By.CssSelector(".regular-price")).FirstOrDefault();
 
@@ -42,6 +46,16 @@ namespace LitecartTesting.Pages.StorePages
             Assert.AreEqual(campaignPrice, CampaignPrice.Text);
 
             StylesHelper.CheckProductStyles(RegularPrice, CampaignPrice, webDriverName);
+        }
+
+        public void BuyProduct()
+        {
+            if (SizeOptions != null)
+            {
+                ExecuteScriptsHelper.SelectItemFromDropDown(SizeOptions, 2, webDriver);
+            }
+
+            AddToCart.Click();
         }
     }
 }

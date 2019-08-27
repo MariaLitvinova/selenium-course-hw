@@ -52,6 +52,12 @@ namespace LitecartTesting.Pages
         public IWebElement Logout
             => AccountForm.FindElements(By.CssSelector("li"))[3].FindElement(By.CssSelector("a"));
 
+        public IWebElement CartWrapper
+            => webDriver.FindElement(By.Id("cart"));
+
+        public IWebElement Checkout
+            => CartWrapper.FindElement(By.PartialLinkText("Checkout"));
+
         public MainStorePage(IWebDriver webDriver, WebDriverWait wait) : base(webDriver, wait) { }
 
         public void Load()
@@ -69,6 +75,27 @@ namespace LitecartTesting.Pages
             {
                 CheckLabel(DucksList[i]);
             }
+        }
+
+        public void BuyFirstDuck()
+        {
+            var currentQuantity = int.Parse(CartWrapper.FindElement(By.CssSelector(".content .quantity")).Text);
+
+            var duckToBuy = DucksList.FirstOrDefault();
+            Assert.IsNotNull(duckToBuy);
+
+            var link = duckToBuy.FindElement(By.CssSelector("a.link"));
+            link.Click();
+
+            var productPage = new ProductPage(webDriver, wait);
+            productPage.CheckPageIsLoaded();
+            productPage.BuyProduct();
+
+            wait.Until(driver => 
+                CartWrapper.FindElements(By.CssSelector(".content .quantity")).Count > 0
+                && int.Parse(CartWrapper.FindElement(By.CssSelector(".content .quantity")).Text) == currentQuantity + 1);
+
+            HomeButton.Click();
         }
 
         public void CheckYellowDuckStyle(string webDriverName)
