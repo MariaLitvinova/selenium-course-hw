@@ -18,6 +18,8 @@ namespace LitecartTesting.Pages.AdministrationMenu
 
         public IWebElement CancelEditingGeozonesButton => webDriver.FindElement(By.Name("cancel"));
 
+        public IWebElement CreateNewCountryButton => webDriver.FindElement(By.CssSelector("#content div a.button"));
+
         public CountriesPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
         public void CheckSorting()

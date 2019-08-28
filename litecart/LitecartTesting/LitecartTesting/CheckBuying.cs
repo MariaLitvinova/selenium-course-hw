@@ -1,13 +1,10 @@
-﻿using LitecartTesting.Forms;
-using LitecartTesting.Pages;
-using LitecartTesting.Pages.AdministrationMenu;
+﻿using LitecartTesting.Pages;
 using LitecartTesting.Pages.StorePages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Linq;
 
 namespace LitecartTesting
 {

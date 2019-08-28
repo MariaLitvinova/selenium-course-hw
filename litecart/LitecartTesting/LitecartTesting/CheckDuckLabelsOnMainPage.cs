@@ -1,5 +1,4 @@
-﻿using LitecartTesting.Forms;
-using LitecartTesting.Pages;
+﻿using LitecartTesting.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;

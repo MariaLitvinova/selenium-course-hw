@@ -2,11 +2,7 @@
 using LitecartTesting.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
 using System;
-using System.Collections;
 
 namespace LitecartTesting
 {

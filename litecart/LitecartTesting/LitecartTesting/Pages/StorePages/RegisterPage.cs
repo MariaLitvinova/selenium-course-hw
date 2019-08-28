@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LitecartTesting.Helpers;
+﻿using LitecartTesting.Helpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 

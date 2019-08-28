@@ -1,8 +1,5 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.ObjectModel;
 
 namespace LitecartTesting.Pages.AdministrationMenu
 {
