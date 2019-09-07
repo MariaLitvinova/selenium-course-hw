@@ -19,7 +19,7 @@ namespace LitecartTesting.Pages
         {
             bool headerAppeared = wait.Until(driver =>
                 driver.FindElements(By.CssSelector("td#content h1")).Count == 1
-                && driver.FindElement(By.CssSelector("td#content h1")).Text == header);
+                && driver.FindElement(By.CssSelector("td#content h1")).Text.Contains(header));
             Assert.IsTrue(headerAppeared);
         }
     }

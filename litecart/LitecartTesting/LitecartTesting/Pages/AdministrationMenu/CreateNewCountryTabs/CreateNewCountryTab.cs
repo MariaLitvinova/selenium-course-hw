@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -44,12 +42,12 @@ namespace LitecartTesting.Pages.AdministrationMenu
 
                 webDriver.SwitchTo().Window(newWindowHandle);
 
-                wait.Until(ExpectedConditions.TitleContains(expectedWindowTitles[i]));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains(expectedWindowTitles[i]));
 
                 webDriver.Close();
                 webDriver.SwitchTo().Window(originalWindowHandle);
 
-                wait.Until(ExpectedConditions.TitleContains("Add New Country"));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains("Add New Country"));
             }
         }
     }
